@@ -1,5 +1,5 @@
 package ua.com.juja.core;
-
+import java.lang.Math;
 /**
  * Created by yulia on 19.09.16.
  */
@@ -13,58 +13,55 @@ public class Lab37 {
      * Сдвиг на расстояние 0 и сдвиги строк длиной 0 и 1 символ - разрешены.*/
 
     public static void main(String[] args) {
-        rightShift("0123456789", Integer.MIN_VALUE);
-    }
+        long start = System.currentTimeMillis();
 
+
+        System.out.println(Lab37.rightShift("0123456789", Integer.MIN_VALUE));
+        System.out.println("Time: " + (System.currentTimeMillis() - start) + "ms");
+    }
 
    public static String rightShift(String arg, int delta) {
 
-        String result = "";
-        int index = 0;
-        String[] s = new String[arg.length()];
-        for (int i = 0; i < s.length; i++) {
-            s[i] = arg.substring(i,i+1);
+       String res = "";
 
-        }
+       if(arg.length() != 0) {
+           int newDelta = returnNewDelta(arg, delta);
 
-       if(arg.equals("0123456789") && delta == Integer.MIN_VALUE ){
-           return "8901234567";
+           String before;
+           String after;
+           if (delta > 0) {
+
+                   before = arg.substring(0, arg.length()  - newDelta);
+                   after = arg.substring(arg.length() - newDelta, arg.length());
+
+
+           } else {
+               before = arg.substring(0, newDelta);
+               after = arg.substring(newDelta, arg.length());
+
+           }
+           res = after + before;
        }
-       else if(s.length <= 1){
-       return arg;
-       }
 
-           else if(index <= delta) {
-                while (index < delta) {
-                    String temp = s[s.length - 1];
-                    for (int i = s.length-2; i >= 0; i--) {
-                        s[i+1] = s[i];
-                    }
-                    s[0] = temp;
-                    index++;
-                }
 
-            }
-            else  {
-                while (index > delta) {
-                    String temp = s[0];
-                    for (int i = 0; i < s.length - 1; i++) {
-                    s[i] = s[i+1];
+        return res;
+
+    }
+    public static int returnNewDelta(String arg, int delta){
+
+            if (Math.abs(delta) > arg.length() || delta < -arg.length()) {
+                Integer temp = delta % arg.length();
+                if(temp > arg.length()){
+                    returnNewDelta( arg, delta);
                 }
-                    s[s.length -1] = temp;
-                    index--;
+                delta = Math.abs(temp);
+
+
+            } else {
+                delta = Math.abs(delta);
             }
 
-          }
-
-        for (int i = 0; i < s.length; i++) {
-
-             result += s[i];
-
-        }
-
-        return result;
-
+        return delta;
     }
     }
 
