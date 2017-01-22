@@ -18,6 +18,10 @@ public class SimpleArrayList <E> implements SimpleList<E> {
 
     public SimpleArrayList(int initialCapacity) {
         this.data = (E[]) new Object[initialCapacity];
+
+        // My code
+        //start
+        //-------------------------------------------------------------------------
         iterator = new Iterator<E>() {
             @Override
             public boolean hasNext() {
@@ -58,7 +62,8 @@ public class SimpleArrayList <E> implements SimpleList<E> {
             }
         };
     }
-
+    // end
+//-----------------------------------------------------------------------------------------------------
     @Override
     public boolean add(E newElement) {
         ensureCapacity(size + 1);
@@ -78,6 +83,9 @@ public class SimpleArrayList <E> implements SimpleList<E> {
         return iterator;
     }
 
+    // My code
+    // start
+    //------------------------------------------------------------------------------------------
     @Override
     public String toString(){
         String result = "[";
@@ -124,7 +132,8 @@ public class SimpleArrayList <E> implements SimpleList<E> {
         return hashCode;
     }
 
-
+    //end
+    //--------------------------------------------------------------------------
 
     @Override
     public int size() {
